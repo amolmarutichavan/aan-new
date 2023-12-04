@@ -1,0 +1,188 @@
+entity UserDocument {
+    documentName String required maxlength(150),
+    documentUrl String required maxlength(150),
+    uploadDateTime Instant
+    docStatus String required maxlength(10),
+    createdAt Instant,
+    createdBy String,
+    updatedAt Instant,
+    updatedBy String,
+    active Boolean required
+}
+entity UserLocation{
+    addressLine1 String required maxlength(50),
+    addressLine2 String ,
+    createdAt Instant,
+    createdBy String,
+    updatedAt Instant,
+    updatedBy String,
+    active Boolean required
+}
+entity UserReview{
+    timesTamp Instant,
+    rating Integer,
+    review String,
+    category Category,
+    createdAt Instant,
+    createdBy String,
+    updatedAt Instant,
+    updatedBy String,
+    active Boolean required
+
+}
+entity Post{
+    postType PostType,
+    quantity Long
+    unit Double
+    minPrice BigDecimal,
+    maxPrice BigDecimal,
+    targetDate LocalDate required,
+    createdAt Instant,
+    createdBy String,
+    updatedAt Instant,
+    updatedBy String,
+    active Boolean required
+}
+entity PostImage{
+    imageUrl String,
+    createdAt Instant,
+    createdBy String,
+    updatedAt Instant,
+    updatedBy String,
+    deleted Boolean required
+}
+entity Category{
+    categoryName String required maxlength(50),
+    createdAt Instant,
+    createdBy String,
+    updatedAt Instant,
+    updatedBy String,
+    active Boolean required
+}
+entity Product{
+    productName String required maxlength(50),
+    createdAt Instant,
+    createdBy String,
+    updatedAt Instant,
+    updatedBy String,
+    deleted Boolean required
+}
+entity Variety{
+    varietyName String required maxlength(50),
+    createdAt Instant,
+    createdBy String,
+    updatedAt Instant,
+    updatedBy String,
+    deleted Boolean required
+}
+
+entity State {
+    name String maxlength(100),
+    createdAt Instant,
+    createdBy String,
+    updatedAt Instant,
+    updatedBy String,
+    active Boolean required
+}
+
+entity Country {
+    name String maxlength(100),
+    createdAt Instant,
+    createdBy String,
+    updatedAt Instant,
+    updatedBy String,
+    active Boolean required
+}
+
+entity Pincode {
+    pinCode String maxlength(6) required,
+    createdAt Instant,
+    createdBy String,
+    updatedAt Instant,
+    updatedBy String,
+    active Boolean required
+}
+entity District  {
+    name String maxlength(100),
+    createdAt Instant,
+    createdBy String,
+    updatedAt Instant,
+    updatedBy String,
+    active Boolean required
+}
+entity Taluka  {
+    name String maxlength(100),
+    createdAt Instant,
+    createdBy String,
+    updatedAt Instant,
+    updatedBy String,
+    active Boolean required
+}
+entity Village  {
+    name String maxlength(100),
+    createdAt Instant,
+    createdBy String,
+    updatedAt Instant,
+    updatedBy String,
+    active Boolean required
+}
+
+enum Gender {
+    MALE, FEMALE
+}
+enum PostStatus{
+    OPEN, CLOSE, EXPIRE
+}
+enum DocStatus{
+    PENDING, COMPLETED, REJECTED
+}
+enum PostType{
+    BUYER, SELLER
+}
+enum Solutation{
+    MRS, MR
+}
+enum VerificationResult{
+    SUCCESS, FAILURE
+}
+enum Category{
+    GENERAL, PRODUCT, SERVICE, EXPERIENCE, FEATURE, OTHER
+}
+
+relationship OneToMany {
+    Product { variety } to Variety { product }
+    Post { postImage } to PostImage { post }
+    Country { states } to State { country }
+    State { district } to District { state }
+    District { taluka } to Taluka { district }
+    Taluka { village } to Village { taluka }
+    Country { userLocation } to UserLocation { country }
+    State { userLocation } to UserLocation { state }
+    District { userLocation } to UserLocation { district }
+    Taluka { userLocation } to UserLocation { taluka }
+    Village { userLocation } to UserLocation { village }
+}
+
+relationship ManyToOne{
+    Post to User with builtInEntity
+    UserDocument to User with builtInEntity
+    UserReview to User with builtInEntity
+    UserLocation to User with builtInEntity
+
+}
+relationship ManyToMany {
+
+    UserLocation {pincodes} to Pincode {userLocation}
+    Post {product} to Product {post}
+    Product to User with builtInEntity
+
+}
+relationship OneToOne {
+
+    Product { category } to Category { product }
+}
+dto * with mapstruct
+
+service * with serviceImpl
+
+filter *

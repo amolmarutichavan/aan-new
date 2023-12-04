@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <!--
+        Added the constraints for entity UserLocation.
+    -->
+    <changeSet id="20231204110236-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="user_id"
+                                 baseTableName="user_location"
+                                 constraintName="fk_user_location__user_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="jhi_user"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="user_location_id"
+                                 baseTableName="rel_user_location__pincodes"
+                                 constraintName="fk_rel_user_location__pincodes__user_location_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="user_location"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="pincodes_id"
+                                 baseTableName="rel_user_location__pincodes"
+                                 constraintName="fk_rel_user_location__pincodes__pincodes_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="pincode"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="country_id"
+                                 baseTableName="user_location"
+                                 constraintName="fk_user_location__country_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="country"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="state_id"
+                                 baseTableName="user_location"
+                                 constraintName="fk_user_location__state_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="state"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="district_id"
+                                 baseTableName="user_location"
+                                 constraintName="fk_user_location__district_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="district"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="taluka_id"
+                                 baseTableName="user_location"
+                                 constraintName="fk_user_location__taluka_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="taluka"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="village_id"
+                                 baseTableName="user_location"
+                                 constraintName="fk_user_location__village_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="village"
+                                 />
+    </changeSet>
+</databaseChangeLog>

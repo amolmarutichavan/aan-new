@@ -1,0 +1,48 @@
+{
+  "applications": "*",
+  "changelogDate": "20231204110229",
+  "dto": "mapstruct",
+  "entityTableName": "pincode",
+  "fields": [
+    {
+      "fieldName": "pinCode",
+      "fieldType": "String",
+      "fieldValidateRules": ["maxlength", "required"],
+      "fieldValidateRulesMaxlength": "6"
+    },
+    {
+      "fieldName": "createdAt",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "createdBy",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "updatedAt",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "updatedBy",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "active",
+      "fieldType": "Boolean",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "name": "Pincode",
+  "relationships": [
+    {
+      "otherEntityName": "userLocation",
+      "otherEntityRelationshipName": "pincodes",
+      "relationshipName": "userLocation",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-many"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

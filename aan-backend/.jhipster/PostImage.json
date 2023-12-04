@@ -1,0 +1,46 @@
+{
+  "applications": "*",
+  "changelogDate": "20231204110231",
+  "dto": "mapstruct",
+  "entityTableName": "post_image",
+  "fields": [
+    {
+      "fieldName": "imageUrl",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdAt",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "createdBy",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "updatedAt",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "updatedBy",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "deleted",
+      "fieldType": "Boolean",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "name": "PostImage",
+  "relationships": [
+    {
+      "otherEntityName": "post",
+      "otherEntityRelationshipName": "postImage",
+      "relationshipName": "post",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

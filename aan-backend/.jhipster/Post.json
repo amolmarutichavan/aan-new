@@ -1,0 +1,83 @@
+{
+  "applications": "*",
+  "changelogDate": "20231204110230",
+  "dto": "mapstruct",
+  "entityTableName": "post",
+  "fields": [
+    {
+      "fieldName": "postType",
+      "fieldType": "PostType",
+      "fieldValues": "BUYER,SELLER"
+    },
+    {
+      "fieldName": "quantity",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "unit",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "minPrice",
+      "fieldType": "BigDecimal"
+    },
+    {
+      "fieldName": "maxPrice",
+      "fieldType": "BigDecimal"
+    },
+    {
+      "fieldName": "targetDate",
+      "fieldType": "LocalDate",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "createdAt",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "createdBy",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "updatedAt",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "updatedBy",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "active",
+      "fieldType": "Boolean",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "name": "Post",
+  "relationships": [
+    {
+      "otherEntityName": "postImage",
+      "otherEntityRelationshipName": "post",
+      "relationshipName": "postImage",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "user",
+      "otherEntityRelationshipName": "post",
+      "relationshipName": "user",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one",
+      "relationshipWithBuiltInEntity": true
+    },
+    {
+      "otherEntityName": "product",
+      "otherEntityRelationshipName": "post",
+      "relationshipName": "product",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-many"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

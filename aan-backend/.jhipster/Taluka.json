@@ -1,0 +1,62 @@
+{
+  "applications": "*",
+  "changelogDate": "20231204110234",
+  "dto": "mapstruct",
+  "entityTableName": "taluka",
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String",
+      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRulesMaxlength": "100"
+    },
+    {
+      "fieldName": "createdAt",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "createdBy",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "updatedAt",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "updatedBy",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "active",
+      "fieldType": "Boolean",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "name": "Taluka",
+  "relationships": [
+    {
+      "otherEntityName": "village",
+      "otherEntityRelationshipName": "taluka",
+      "relationshipName": "village",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "userLocation",
+      "otherEntityRelationshipName": "taluka",
+      "relationshipName": "userLocation",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "district",
+      "otherEntityRelationshipName": "taluka",
+      "relationshipName": "district",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}
