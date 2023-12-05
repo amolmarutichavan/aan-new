@@ -1,5 +1,6 @@
 package com.mgs.aan.service;
 
+import com.mgs.aan.domain.Category;
 import com.mgs.aan.service.dto.ProductDTO;
 import java.util.List;
 import java.util.Optional;
@@ -56,6 +57,8 @@ public interface ProductService {
      * @return the entity.
      */
     Optional<ProductDTO> findOne(Long id);
+
+    List<ProductDTO> findByCategoryId( Long id);
 
     /**
      * Delete the "id" product.

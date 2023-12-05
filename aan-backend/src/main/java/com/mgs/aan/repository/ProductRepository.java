@@ -1,5 +1,6 @@
 package com.mgs.aan.repository;
 
+import com.mgs.aan.domain.Category;
 import com.mgs.aan.domain.Product;
 import java.util.List;
 import java.util.Optional;
@@ -29,4 +30,6 @@ public interface ProductRepository
     default Page<Product> findAllWithEagerRelationships(Pageable pageable) {
         return this.fetchBagRelationships(this.findAll(pageable));
     }
+
+    Optional<Object> findAllByCategoryId(Long id);
 }

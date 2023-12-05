@@ -1,18 +1,22 @@
 package com.mgs.aan.web.rest;
 
+import com.mgs.aan.domain.Category;
 import com.mgs.aan.repository.ProductRepository;
 import com.mgs.aan.service.ProductQueryService;
 import com.mgs.aan.service.ProductService;
 import com.mgs.aan.service.criteria.ProductCriteria;
+import com.mgs.aan.service.dto.CategoryDTO;
 import com.mgs.aan.service.dto.ProductDTO;
 import com.mgs.aan.web.rest.errors.BadRequestAlertException;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
+
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -70,7 +74,7 @@ public class ProductResource {
     /**
      * {@code PUT  /products/:id} : Updates an existing product.
      *
-     * @param id the id of the productDTO to save.
+     * @param id         the id of the productDTO to save.
      * @param productDTO the productDTO to update.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated productDTO,
      * or with status {@code 400 (Bad Request)} if the productDTO is not valid,
@@ -104,7 +108,7 @@ public class ProductResource {
     /**
      * {@code PATCH  /products/:id} : Partial updates given fields of an existing product, field will ignore if it is null
      *
-     * @param id the id of the productDTO to save.
+     * @param id         the id of the productDTO to save.
      * @param productDTO the productDTO to update.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated productDTO,
      * or with status {@code 400 (Bad Request)} if the productDTO is not valid,
@@ -112,7 +116,7 @@ public class ProductResource {
      * or with status {@code 500 (Internal Server Error)} if the productDTO couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    @PatchMapping(value = "/products/{id}", consumes = { "application/json", "application/merge-patch+json" })
+    @PatchMapping(value = "/products/{id}", consumes = {"application/json", "application/merge-patch+json"})
     public ResponseEntity<ProductDTO> partialUpdateProduct(
         @PathVariable(value = "id", required = false) final Long id,
         @NotNull @RequestBody ProductDTO productDTO
@@ -174,6 +178,12 @@ public class ProductResource {
         log.debug("REST request to get Product : {}", id);
         Optional<ProductDTO> productDTO = productService.findOne(id);
         return ResponseUtil.wrapOrNotFound(productDTO);
+    }
+
+    @GetMapping("/product/category/{id}")
+    public ResponseEntity<List<ProductDTO>> getProductByCategoryId(@PathVariable(value ="id") Long id) {
+        List<ProductDTO> products = productService.findByCategoryId(id);
+        return ResponseEntity.ok().body(products);
     }
 
     /**
