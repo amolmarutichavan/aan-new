@@ -47,6 +47,9 @@ public interface VarietyService {
      */
     Optional<VarietyDTO> findOne(Long id);
 
+
+    List<VarietyDTO> findByProductId(Long id);
+
     /**
      * Delete the "id" variety.
      *

@@ -176,6 +176,12 @@ public class VarietyResource {
         return ResponseUtil.wrapOrNotFound(varietyDTO);
     }
 
+    @GetMapping("/varieties/product/{id}")
+    public ResponseEntity<List<VarietyDTO>> getVarietyByProductId(@PathVariable("id") Long id){
+        List<VarietyDTO> variety = varietyService.findByProductId(id);
+        return ResponseEntity.ok().body(variety);
+    }
+
     /**
      * {@code DELETE  /varieties/:id} : delete the "id" variety.
      *

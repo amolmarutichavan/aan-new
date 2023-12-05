@@ -31,5 +31,5 @@ public interface ProductRepository
         return this.fetchBagRelationships(this.findAll(pageable));
     }
 
-    Optional<Object> findAllByCategoryId(Long id);
+    List<Product> findAllByCategoryId(Long id);
 }
