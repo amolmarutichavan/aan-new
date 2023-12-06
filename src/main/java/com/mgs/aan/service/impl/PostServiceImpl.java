@@ -1,21 +1,21 @@
 package com.mgs.aan.service.impl;
 
 import com.mgs.aan.domain.Post;
-import com.mgs.aan.domain.Variety;
+import com.mgs.aan.domain.enumeration.PostType;
 import com.mgs.aan.repository.PostRepository;
 import com.mgs.aan.service.PostService;
 import com.mgs.aan.service.dto.PostDTO;
 import com.mgs.aan.service.mapper.PostMapper;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Optional;
+import java.time.LocalDate;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -92,6 +92,30 @@ public class PostServiceImpl implements PostService {
             .stream()
             .map(postMapper::toDto)
             .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<PostDTO> findAllExpiredPosts() {
+        LocalDate expired = LocalDate.now();
+
+        List<Post> expiredPosts = postRepository.findAllExpiredPosts(expired);
+
+        List<PostDTO> sortedExpiredPosts = expiredPosts.stream()
+            .sorted(Comparator.comparing(Post::getTargetDate, Comparator.reverseOrder()))
+            .map(postMapper::toDto)
+            .collect(Collectors.toList());
+        return sortedExpiredPosts;
+    }
+
+    @Override
+    public List<PostDTO> findAllPostByPostType(PostType postType) {
+        List<Post> posts= postRepository.findAllPostByPostType(postType);
+        List<PostDTO> postDTOList = new ArrayList<>();
+        for (Post post : posts){
+            PostDTO postDTO = postMapper.toDto(post);
+            postDTOList.add(postDTO);
+        }
+        return postDTOList;
     }
 
     @Override
