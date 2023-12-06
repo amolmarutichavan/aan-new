@@ -6,10 +6,12 @@ import com.mgs.aan.repository.VarietyRepository;
 import com.mgs.aan.service.VarietyService;
 import com.mgs.aan.service.dto.VarietyDTO;
 import com.mgs.aan.service.mapper.VarietyMapper;
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -85,12 +87,8 @@ public class VarietyServiceImpl implements VarietyService {
             .stream()
             .map(v -> varietyMapper.toDto((Variety) v))
             .collect(Collectors.toList());
-      /*  return productRepository.findAllByCategoryId(id)
-            .stream()
-            .map(p -> productMapper.toDto((Product) p))
-            .collect(Collectors.toList());*/
-        //  }
     }
+
     @Override
     public void delete(Long id) {
         log.debug("Request to delete Variety : {}", id);

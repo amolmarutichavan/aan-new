@@ -31,4 +31,6 @@ public interface PostRepository extends PostRepositoryWithBagRelationships, JpaR
     default Page<Post> findAllWithEagerRelationships(Pageable pageable) {
         return this.fetchBagRelationships(this.findAll(pageable));
     }
+
+    List<Post> findPostByUserId(Long id);
 }
