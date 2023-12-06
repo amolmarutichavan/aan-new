@@ -8,11 +8,13 @@ import com.mgs.aan.service.dto.PostDTO;
 import com.mgs.aan.web.rest.errors.BadRequestAlertException;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
+
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -70,7 +72,7 @@ public class PostResource {
     /**
      * {@code PUT  /posts/:id} : Updates an existing post.
      *
-     * @param id the id of the postDTO to save.
+     * @param id      the id of the postDTO to save.
      * @param postDTO the postDTO to update.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated postDTO,
      * or with status {@code 400 (Bad Request)} if the postDTO is not valid,
@@ -104,7 +106,7 @@ public class PostResource {
     /**
      * {@code PATCH  /posts/:id} : Partial updates given fields of an existing post, field will ignore if it is null
      *
-     * @param id the id of the postDTO to save.
+     * @param id      the id of the postDTO to save.
      * @param postDTO the postDTO to update.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated postDTO,
      * or with status {@code 400 (Bad Request)} if the postDTO is not valid,
@@ -112,7 +114,7 @@ public class PostResource {
      * or with status {@code 500 (Internal Server Error)} if the postDTO couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    @PatchMapping(value = "/posts/{id}", consumes = { "application/json", "application/merge-patch+json" })
+    @PatchMapping(value = "/posts/{id}", consumes = {"application/json", "application/merge-patch+json"})
     public ResponseEntity<PostDTO> partialUpdatePost(
         @PathVariable(value = "id", required = false) final Long id,
         @NotNull @RequestBody PostDTO postDTO
@@ -174,6 +176,12 @@ public class PostResource {
         log.debug("REST request to get Post : {}", id);
         Optional<PostDTO> postDTO = postService.findOne(id);
         return ResponseUtil.wrapOrNotFound(postDTO);
+    }
+
+    @GetMapping("/post/user/{id}")
+    public ResponseEntity<List<PostDTO>> getPostByUserId(@PathVariable("id") Long id) {
+        List<PostDTO> post = postService.findPostByUserId(id);
+        return ResponseEntity.ok().body(post);
     }
 
     /**

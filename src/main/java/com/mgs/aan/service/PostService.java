@@ -57,6 +57,8 @@ public interface PostService {
      */
     Optional<PostDTO> findOne(Long id);
 
+
+    List<PostDTO> findPostByUserId(Long id);
     /**
      * Delete the "id" post.
      *

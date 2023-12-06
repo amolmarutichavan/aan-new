@@ -1,14 +1,17 @@
 package com.mgs.aan.service.impl;
 
 import com.mgs.aan.domain.Post;
+import com.mgs.aan.domain.Variety;
 import com.mgs.aan.repository.PostRepository;
 import com.mgs.aan.service.PostService;
 import com.mgs.aan.service.dto.PostDTO;
 import com.mgs.aan.service.mapper.PostMapper;
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -81,6 +84,14 @@ public class PostServiceImpl implements PostService {
     public Optional<PostDTO> findOne(Long id) {
         log.debug("Request to get Post : {}", id);
         return postRepository.findOneWithEagerRelationships(id).map(postMapper::toDto);
+    }
+
+    @Override
+    public List<PostDTO> findPostByUserId(Long id) {
+        return postRepository.findPostByUserId(id)
+            .stream()
+            .map(postMapper::toDto)
+            .collect(Collectors.toList());
     }
 
     @Override
