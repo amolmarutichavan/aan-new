@@ -1,8 +1,14 @@
 package com.mgs.aan.repository;
 
 import com.mgs.aan.domain.Post;
+
+import java.time.Instant;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+
+import com.mgs.aan.domain.enumeration.PostType;
+import com.mgs.aan.service.dto.PostDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.*;
@@ -11,7 +17,7 @@ import org.springframework.stereotype.Repository;
 
 /**
  * Spring Data JPA repository for the Post entity.
- *
+ * <p>
  * When extending this class, extend PostRepositoryWithBagRelationships too.
  * For more information refer to https://github.com/jhipster/generator-jhipster/issues/17990.
  */
@@ -33,4 +39,11 @@ public interface PostRepository extends PostRepositoryWithBagRelationships, JpaR
     }
 
     List<Post> findPostByUserId(Long id);
+
+    @Query("SELECT p FROM Post p WHERE p.targetDate < :expired")
+    List<Post> findAllExpiredPosts(@Param("expired") LocalDate expired);
+
+    List<Post> findAllPostByPostType(PostType postType);
+
 }
+

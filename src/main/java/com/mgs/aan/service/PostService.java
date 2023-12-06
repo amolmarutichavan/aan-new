@@ -1,5 +1,7 @@
 package com.mgs.aan.service;
 
+import com.mgs.aan.domain.Post;
+import com.mgs.aan.domain.enumeration.PostType;
 import com.mgs.aan.service.dto.PostDTO;
 import java.util.List;
 import java.util.Optional;
@@ -59,6 +61,11 @@ public interface PostService {
 
 
     List<PostDTO> findPostByUserId(Long id);
+
+
+    List<PostDTO> findAllExpiredPosts();
+
+    List<PostDTO> findAllPostByPostType(PostType postType);
     /**
      * Delete the "id" post.
      *

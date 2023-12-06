@@ -1,5 +1,6 @@
 package com.mgs.aan.web.rest;
 
+import com.mgs.aan.domain.enumeration.PostType;
 import com.mgs.aan.repository.PostRepository;
 import com.mgs.aan.service.PostQueryService;
 import com.mgs.aan.service.PostService;
@@ -182,6 +183,19 @@ public class PostResource {
     public ResponseEntity<List<PostDTO>> getPostByUserId(@PathVariable("id") Long id) {
         List<PostDTO> post = postService.findPostByUserId(id);
         return ResponseEntity.ok().body(post);
+    }
+
+    @GetMapping("post/expired")
+    public ResponseEntity<List<PostDTO>> getAllExpiredPost() {
+        log.debug("Request to get all expired Posts");
+        List<PostDTO> post = postService.findAllExpiredPosts();
+        return ResponseEntity.ok(post);
+    }
+
+    @GetMapping("/post")
+    public ResponseEntity<List<PostDTO>> getAllPostByPostType(@RequestParam(value = "postType")PostType postType){
+        List<PostDTO> post = postService.findAllPostByPostType(postType);
+        return ResponseEntity.ok(post);
     }
 
     /**
